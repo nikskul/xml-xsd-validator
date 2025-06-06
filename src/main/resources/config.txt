@@ -1,0 +1,2 @@
+schema="./xsd/Exchange.xsd"
+xmlDirectory="./xml"

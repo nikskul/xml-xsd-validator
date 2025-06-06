@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RequestType xmlns:ns2="urn:cik:smev-exchange:common" xmlns="urn:cik:smev-exchange">
+    <FileId>8c3647b7-8462-4855-b595-1bee057ba4ea</FileId>
+    <SystemName>КФПП</SystemName>
+    <RequestType>EGR</RequestType>
+    <FileDate>2025-06-05T12:27:03.430Z</FileDate>
+    <Requests>
+        <EGRUL ns2:RequestId="598af6ed-ce25-4782-87cb-41b2380e6c4c">
+            <ns4:OrganizationId>b42eae57-b785-407b-9475-7f570714c23a</ns4:OrganizationId>
+            <ns4:ControlDate>2025-06-04Z</ns4:ControlDate>
+            <ns4:INN>7730592673</ns4:INN>
+        </EGRUL>
+    </Requests>
+</RequestType>

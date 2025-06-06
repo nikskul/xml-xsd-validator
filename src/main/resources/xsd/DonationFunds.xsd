@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:com="urn:cik:smev-exchange:common"
+		   targetNamespace="urn:cik:smev-exchange:donationfunds" elementFormDefault="qualified"
+		   attributeFormDefault="unqualified">
+	<xs:import namespace="urn:cik:smev-exchange:common" schemaLocation="Common.xsd"/>
+	<xs:complexType name="RequestType">
+		<xs:annotation>
+			<xs:documentation>Запрос сведений о контроле за порядком формирования средств избирательных фондов, фондов референдума (проверка источников пожертвований от физических лиц)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="com:RequestBaseType">
+				<xs:sequence>
+					<xs:group ref="com:PersonGroup">
+						<xs:annotation>
+								<xs:documentation>Информация о физическом лице</xs:documentation>
+							</xs:annotation>											
+						</xs:group>
+					<xs:element name="Document" type="com:DocumentInfoType">
+						<xs:annotation>
+							<xs:documentation>Сведения о документе, удостоверяющем личность физического лица</xs:documentation>
+						</xs:annotation>					
+					</xs:element>
+					<xs:element name="ControlDate" type="xs:date">
+						<xs:annotation>
+							<xs:documentation>Контрольная дата</xs:documentation>
+						</xs:annotation>					
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="ResponseType">
+		<xs:annotation>
+			<xs:documentation>Ответ на запрос о контроле за порядком формирования средств избирательных фондов, фондов референдума (проверка источников пожертвований от физических лиц)</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="com:ResponseBaseType">
+				<xs:choice>
+					<xs:sequence>
+						<xs:element name="Status" type="com:ResponseStatusType">
+							<xs:annotation>
+								<xs:documentation>Статус ответа</xs:documentation>
+							</xs:annotation>						
+						</xs:element>
+						<xs:group ref="com:PersonGroup">
+							<xs:annotation>
+								<xs:documentation>Информация о физическом лице</xs:documentation>
+							</xs:annotation>											
+						</xs:group>
+						<xs:element name="Document" type="com:DocumentResponseInfoType">
+							<xs:annotation>
+								<xs:documentation>Сведения о документе, удостоверяющем личность физического лица</xs:documentation>
+							</xs:annotation>						
+						</xs:element>
+                        
+                        <xs:element name="Guid" type="com:string-512" minOccurs="0">
+                            <xs:annotation>
+                                <xs:documentation>Код ФИАС для адреса регистрации по МЖ</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>				
+						<xs:sequence>
+                           <xs:element name="Region" type="com:RegionCodeType" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Регион проживания</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:choice>
+                                <xs:element name="UnstructuredAddress" type="com:string-512">
+                                    <xs:annotation>
+                                      <xs:documentation>Неструктурированный адрес регистрации по месту жительства</xs:documentation>
+                                   </xs:annotation>
+                                </xs:element>
+                                <xs:element name="ComplexAddress" type="com:AddressFullType">
+                                <xs:annotation>
+                                    <xs:documentation>Адрес места жительства </xs:documentation>
+                                </xs:annotation>
+                                
+                                </xs:element>
+                            </xs:choice>
+                            <xs:element name="EndRegistration" type="xs:date" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>Дата снятия с регистрации по месту жительства</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                        
+						<xs:element name="ActualDate" type="xs:date">
+						<xs:annotation>
+							<xs:documentation>Дата актуальности информации</xs:documentation>
+						</xs:annotation>					
+					</xs:element>
+					</xs:sequence>
+					<xs:element ref="com:ErrorResponse"/>
+				</xs:choice>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>

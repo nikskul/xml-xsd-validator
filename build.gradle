@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'ru.nikskul'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class' : 'ru.nikskul.Main'
+    }
+}
+
+tasks.register('prepareDist', Copy) {
+    from jar
+    from 'src/main/resources/config.txt'
+    into 'build/dist'
+    from 'README.md'
+    into 'build/dist'
+
+    doLast {
+        mkdir 'build/dist/xml'
+        mkdir 'build/dist/xsd'
+    }
+    doLast {
+        new File('build/dist/run.bat').text = """
+            @echo off
+            java -jar ${jar.archiveFileName.get()} %*
+            pause
+        """.stripIndent().trim()
+    }
+}
+
+build.dependsOn prepareDist
